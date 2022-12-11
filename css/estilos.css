@@ -1,0 +1,37 @@
+@charset "UTF-8";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; }
+
+.success, .error {
+    color: white;
+    padding: 5px;
+    margin: 5px 0 15px 0;
+}
+
+.success {
+    background: green;
+}
+
+.error {
+    background: red;
+}
+
+.card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column; 
+    font-family: 'Times New Roman', Times, serif;
+    background-color: deepskyblue;
+}
+
+.list-prod {
+    height: 270px;
+    margin-top: 3%;
+    text-align: left;
+    font-weight: bold;
+    overflow: auto;
+}
