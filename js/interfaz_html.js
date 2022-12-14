@@ -3,7 +3,6 @@
 
 export class interfaz {
 
-  
      // Agregar un nuevo producto 
      // @param {Object} productos (Objeto de para nuevos productos)
      // @param {Object} arrP le paso como referencia el array que uso para mostrar valores sobre los productos.
@@ -37,15 +36,16 @@ export class interfaz {
     // al eliminar un producto en el html de la web
     // uso el id que se genera en la función de alta de nuevos productos para encontrar en el array
     // cual es el elemento homónimo que debo borrar..
-    // hago uso de splice y findIndex
+    // hago uso de filter()
 
     deleteProduct(element,arP) {
+      let arrReturn=""
       if (element.name === "borrar") {
-        //debugger;
-        arP.splice(arP.findIndex(x => x.id == element.id),1);
+        arrReturn = arP.filter(x => x.id != element.id);
         element.parentElement.parentElement.remove();
         this.showMessage("El producto fue borrado", "success");
       }
+      return arrReturn
     }
   
     showMessage(message, cssClass) {
@@ -65,6 +65,7 @@ export class interfaz {
         document.querySelector(".alert").remove();
       }, 2000);
     }
+
   }
   
   // Genera nros random enteros entre un mínimo y un máximo
@@ -74,4 +75,6 @@ export class interfaz {
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min) + min);
   }
+
+
 

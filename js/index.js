@@ -26,24 +26,35 @@ document
     // se valida lo ingresado por el usuario
     if (nombre === "" || precio === "" || anio === "") {
       int_html.showMessage("Debe Ingresar un valor en todos los campos requeridos", "danger");
-    } else {
-        // Guarda el nuevo producto
-        int_html.addProduct(product, arrayProductos);
-        int_html.showMessage("El producto fue agregado...", "success");
-        int_html.resetForm();
+    } else if (buscaProduct(nombre, arrayProductos)) {
+              int_html.showMessage("El producto de nombre "+nombre+"  ya fue ingresado  ", "danger");       
+           }  else {
+                // Guarda el nuevo producto
+                int_html.addProduct(product, arrayProductos);
+                int_html.showMessage("El producto fue agregado...", "success");
+                int_html.resetForm();
+                muestraDetalles(arrayProductos);
+              }
+});
 
-        muestraDetalles(arrayProductos);
-        console.log(arrayProductos);
-    }
-  });
 
+// el usuario ha realizado un click para que se borre un elemento en la lista de productos
 document.getElementById("lista-de-productos").addEventListener("click", (e) => {
   const int_html1 = new interfaz();
-  int_html1.deleteProduct(e.target,arrayProductos);
+  arrayProductos = int_html1.deleteProduct(e.target,arrayProductos);
   e.preventDefault();
   muestraDetalles(arrayProductos);
 });
 
+
+// el usuario dispara la búsqueda de un artículo por su nombre
+document.getElementById("busca-producto").addEventListener("submit", (e) => {
+
+  buscaProduct(document.getElementById('nombre-buscado').value, arrayProductos);
+  
+});
+
+// muestra la cantidad de artículos ingresados y la suma de los importes
 function muestraDetalles (arrProd) 
   {
   let suma=0;
@@ -53,4 +64,16 @@ function muestraDetalles (arrProd)
   document.getElementById('cantProductos').innerHTML = arrProd.length;
   document.getElementById('sumaProductos').innerHTML = suma;
 
-  }
+}
+
+// busca el producto por el nombre y muestra los datos del mismo
+// se aplica uso de find en array
+function buscaProduct(nom,arP) {
+  //debugger;
+  let busqueda = arP.find(x => x.nombre == nom);
+  if (busqueda != undefined){
+    return true;
+  } else {
+          return false;
+    }
+}
